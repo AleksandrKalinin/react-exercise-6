@@ -2,7 +2,6 @@ import React, { Fragment }  from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import Photos from './Photos';
-import UserPhotos from './UserPhotos';
 import Header from './Header';
 import UserDetails from './UserDetails';
 import Albums from './Albums';
@@ -108,7 +107,9 @@ ReactDOM.render(
               </>
             </PrivateRoute> 
             <PrivateRoute path="/user/:id/albums/:id">
-              <UserPhotos />
+                <Header />
+                <UserDetails />
+                <Photos />
             </PrivateRoute>                     
           </Switch>                 
         </Router>

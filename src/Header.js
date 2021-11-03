@@ -22,19 +22,19 @@ function Header() {
   }  
 
     return (
-        <div className="header">
-          {user ?
-            <div className="header-info">
-              <span className="header-info__user">Welcome, {user} </span>
-              <Button onClick={logOut}>Logout</Button>
-            </div>  
-           : 
-            <div className="header-info">
-              <span className="header-info__user">You are not authorised </span>
-              <Button onClick={logIn}>Login</Button>
-            </div>
-          }
-        </div>
+      <div className="header">
+        {user ?
+          <div className="header-info">
+            <span className="header-info__user">Welcome, {user} </span>
+            <Button onClick={logOut}>Logout</Button>
+          </div>  
+         : 
+          <div className="header-info">
+            <span className="header-info__user">You are not authorised </span>
+            <Button onClick={logIn}>Login</Button>
+          </div>
+        }
+      </div>
     );
   }
 
