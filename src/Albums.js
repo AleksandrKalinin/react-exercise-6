@@ -4,9 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAlbums, getPhotos, addAlbum, addPhoto } from './actions/index';
 import Portal from './Portal';
 import EmptyTemplate from './EmptyTemplate';
-import { Link, useRouteMatch } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-function Content() {
+function Albums() {
 
   const dispatch = useDispatch();
   const albumsList = useSelector(state => state.albumsArray.albums);
@@ -134,15 +134,14 @@ function Content() {
     setInputValue('');
   }
 
-    let { path, url } = useRouteMatch();
-    console.log(url);
-    console.log(path);
-
   return (
     <>
+      <div className="header">
+        
+      </div>
       <Container>
         <div className="scroll-button" onClick={scrollToTarget}>
-          <img src={window.location.origin + "/arrow.png"} alt="" />
+          <img src="./arrow.png" alt="" />
         </div>
           <Row>
             <Col>
@@ -160,9 +159,7 @@ function Content() {
                       <tr key={item.id} >
                         <td>{item.id}</td>
                         <td>{item.title}</td>
-                        <td>{/*<Link to={`albums/${item.id}`}>Open</Link>*/}
-                            <Link to={`${url}/albums/${item.id}`}>Open</Link>
-                        </td>
+                        <td><Link to={`albums/${item.id}`}>Open</Link></td>
                       </tr>
                     )}
                     <tr>
@@ -208,4 +205,4 @@ function Content() {
   );
 }
 
-export default Content;
+export default Albums;

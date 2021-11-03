@@ -3,10 +3,11 @@ import { Container, Row, Col, Table, Card, Button, Modal, Form } from 'react-boo
 import { useDispatch, useSelector } from 'react-redux';
 import { getAlbums, getPhotos, addAlbum, addPhoto } from './actions/index';
 import Portal from './Portal';
+import UserDetails from './UserDetails';
 import EmptyTemplate from './EmptyTemplate';
-import { Link, useRouteMatch } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
-function Content() {
+function UserPhotos() {
 
   const dispatch = useDispatch();
   const albumsList = useSelector(state => state.albumsArray.albums);
@@ -37,15 +38,16 @@ function Content() {
 
   useEffect(() => {
     if (isSuccesful === true) {
-      openPhotos(true);
       setPhotos(photosList);      
     }
   }, [photosList])
 
-  const showPhotos = (id) => {
+  const { id } = useParams();
+
+  useEffect(() => {
     dispatch(getPhotos(id))
     setCurrentAlbum(id);
-  }
+  }, [])
 
   const createAlbum = (name) => {
     if (name !== '') {
@@ -77,7 +79,7 @@ function Content() {
   }
 
   const checkExecution = (e) => {
-    setCurrentFunction(() => createAlbum);
+    setCurrentFunction(() => createPhoto);
     setOn(true);
   }
 
@@ -134,52 +136,47 @@ function Content() {
     setInputValue('');
   }
 
-    let { path, url } = useRouteMatch();
-    console.log(url);
-    console.log(path);
-
   return (
     <>
+      <UserDetails />
       <Container>
         <div className="scroll-button" onClick={scrollToTarget}>
-          <img src={window.location.origin + "/arrow.png"} alt="" />
+          <img src="./arrow.png" alt="" />
         </div>
-          <Row>
-            <Col>
-              {isSuccesful ?
-                <Table striped bordered hover size="sm">
-                  <thead>
-                    <tr>
-                      <th>Id</th>
-                      <th>Title</th>
-                      <th></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {albums.map((item, index) =>
-                      <tr key={item.id} >
-                        <td>{item.id}</td>
-                        <td>{item.title}</td>
-                        <td>{/*<Link to={`albums/${item.id}`}>Open</Link>*/}
-                            <Link to={`${url}/albums/${item.id}`}>Open</Link>
-                        </td>
-                      </tr>
-                    )}
-                    <tr>
-                      <td colSpan="3">
-                        <Button onClick={checkExecution} id="albumButton" className="styled-button">Add new album</Button>
-                      </td>
-                    </tr>                      
-                  </tbody>
-                </Table>                    
-                : <div>Loading...</div>}
-            </Col>
-          </Row>
+          <Fragment>
+            <Row>
+              <Col md={12} lg={12} xs={12} style={{ justifyContent: 'center' }}>
+                <Link to="/"><Button className="styled-button">Back to albums</Button></Link>
+              </Col>
+              <Col md={12} lg={12} xs={12} style={{ justifyContent: 'center' }}>
+                <p className="current-album">Photos for album {currentAlbum}</p>
+              </Col>
+                <Fragment>
+                  {photos.map((item) => 
+                    <Col md={4} lg={4} xs={4} key={item.id}>
+                      <Card className="styled-card">
+                        <Card.Img variant="top" src={item.url} />
+                        <Card.Body>
+                          <Card.Text>
+                            {item.title}
+                          </Card.Text>
+                        </Card.Body>
+                      </Card>
+                    </Col>
+                  )}
+                </Fragment>
+            </Row>
+            <Row>
+              <Col md={12} lg={12} xs={12} style={{ justifyContent: 'center' }}>
+                <Button onClick={checkExecution} id="photoButton" className="styled-button">Add photo</Button>
+              </Col>            
+            </Row>
+          </Fragment>  
         { isOn ? 
         <Portal>
           <Modal.Dialog aria-labelledby="contained-modal-title-vcenter" centered ref={refModal}>
             <Modal.Header>
-              <Modal.Title>Album modal</Modal.Title>
+              <Modal.Title>Photo modal</Modal.Title>
               <div className="close-icon" onClick={closeModal}>
                 <img src="close.png" />
               </div>
@@ -187,8 +184,8 @@ function Content() {
             <Modal.Body>
               <Form>
                 <Form.Group className="mb-3" controlId="formBasicPassword">
-                  <Form.Label className="form-label">Please add name of an album in the text field below</Form.Label>
-                  <Form.Control defaultValue = {inputValue} onChange={(e) => setInputValue(e.target.value)} type="text" placeholder="New album" />
+                  <Form.Label className="form-label">Please add name of an photo in the text field below</Form.Label>
+                  <Form.Control defaultValue = {inputValue} onChange={(e) => setInputValue(e.target.value)} type="text" placeholder="New photo" />
                 </Form.Group>
               </Form>
             </Modal.Body>
@@ -208,4 +205,4 @@ function Content() {
   );
 }
 
-export default Content;
+export default UserPhotos;

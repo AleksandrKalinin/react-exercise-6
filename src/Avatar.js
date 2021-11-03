@@ -3,7 +3,7 @@ import { Image } from 'react-bootstrap';
 function Avatar() {
     return (
       <div className="image-wrapper">
-        <Image src="avatar.png" roundedCircle />
+        <Image src={window.location.origin + "/avatar.png"} roundedCircle />
       </div>
     );
   }
