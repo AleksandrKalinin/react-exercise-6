@@ -49,26 +49,11 @@ function UserPhotos() {
     setCurrentAlbum(id);
   }, [])
 
-  const createAlbum = (name) => {
-    if (name !== '') {
-      const newItem = {};
-      newItem.id = albumsList.length + 1;
-      newItem.userId = newItem.id;
-      newItem.title = name;
-      newItem.photos = [];
-      dispatch(addAlbum(newItem));
-      setOn(false);
-      setInputValue('');
-    } else {
-      alert('Please enter correct name value');
-    }
-  }
-
   const createPhoto = (name) => {
     if (name !== '') {
       const photo = {};
       photo.title = 'Lorem ipsum dolor sit ament';
-      photo.url = 'token-image.jpg';
+      photo.url = `${window.location.origin}/token-image.jpg`;
       photo.id = photosList.length + 1;
       dispatch(addPhoto(photo));
       setOn(false);
@@ -141,7 +126,7 @@ function UserPhotos() {
       <UserDetails />
       <Container>
         <div className="scroll-button" onClick={scrollToTarget}>
-          <img src="./arrow.png" alt="" />
+          <img src={window.location.origin + "/arrow.png"} alt="" />
         </div>
           <Fragment>
             <Row>
@@ -178,7 +163,7 @@ function UserPhotos() {
             <Modal.Header>
               <Modal.Title>Photo modal</Modal.Title>
               <div className="close-icon" onClick={closeModal}>
-                <img src="close.png" />
+                <img src={window.location.origin + "/close.png"} />
               </div>
             </Modal.Header>
             <Modal.Body>

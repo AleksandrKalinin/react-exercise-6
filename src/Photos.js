@@ -48,21 +48,6 @@ function Photos() {
     setCurrentAlbum(id);
   }, [])
 
-  const createAlbum = (name) => {
-    if (name !== '') {
-      const newItem = {};
-      newItem.id = albumsList.length + 1;
-      newItem.userId = newItem.id;
-      newItem.title = name;
-      newItem.photos = [];
-      dispatch(addAlbum(newItem));
-      setOn(false);
-      setInputValue('');
-    } else {
-      alert('Please enter correct name value');
-    }
-  }
-
   const createPhoto = (name) => {
     if (name !== '') {
       const photo = {};
@@ -139,7 +124,7 @@ function Photos() {
     <>
       <Container>
         <div className="scroll-button" onClick={scrollToTarget}>
-          <img src="./arrow.png" alt="" />
+          <img src={window.location.origin + "/arrow.png"} alt="" />
         </div>
           <Fragment>
             <Row>
@@ -176,7 +161,7 @@ function Photos() {
             <Modal.Header>
               <Modal.Title>Photo modal</Modal.Title>
               <div className="close-icon" onClick={closeModal}>
-                <img src="close.png" />
+                <img src={window.location.origin + "/close.png"} />
               </div>
             </Modal.Header>
             <Modal.Body>

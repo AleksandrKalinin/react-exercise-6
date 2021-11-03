@@ -10,7 +10,6 @@ function Content() {
 
   const dispatch = useDispatch();
   const albumsList = useSelector(state => state.albumsArray.albums);
-  const photosList = useSelector(state => state.photosArray.photos);
 
   useEffect(() => {
     dispatch(getAlbums())
@@ -18,9 +17,6 @@ function Content() {
 
   const [albums, setAlbums] = useState([]);
   const [isSuccesful, setStatus] = useState(false);
-
-  const [photos, setPhotos] = useState([]);
-  const [photosShown, openPhotos] = useState(false);
 
   const [currentAlbum, setCurrentAlbum] = useState(null);
 
@@ -35,18 +31,6 @@ function Content() {
     setStatus(true);
   }, [albumsList])
 
-  useEffect(() => {
-    if (isSuccesful === true) {
-      openPhotos(true);
-      setPhotos(photosList);      
-    }
-  }, [photosList])
-
-  const showPhotos = (id) => {
-    dispatch(getPhotos(id))
-    setCurrentAlbum(id);
-  }
-
   const createAlbum = (name) => {
     if (name !== '') {
       const newItem = {};
@@ -55,20 +39,6 @@ function Content() {
       newItem.title = name;
       newItem.photos = [];
       dispatch(addAlbum(newItem));
-      setOn(false);
-      setInputValue('');
-    } else {
-      alert('Please enter correct name value');
-    }
-  }
-
-  const createPhoto = (name) => {
-    if (name !== '') {
-      const photo = {};
-      photo.title = 'Lorem ipsum dolor sit ament';
-      photo.url = 'token-image.jpg';
-      photo.id = photosList.length + 1;
-      dispatch(addPhoto(photo));
       setOn(false);
       setInputValue('');
     } else {
@@ -181,7 +151,7 @@ function Content() {
             <Modal.Header>
               <Modal.Title>Album modal</Modal.Title>
               <div className="close-icon" onClick={closeModal}>
-                <img src="close.png" />
+                <img src={window.location.origin + "/close.png"} />
               </div>
             </Modal.Header>
             <Modal.Body>

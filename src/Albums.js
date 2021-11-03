@@ -17,9 +17,9 @@ function Albums() {
   }, [dispatch]);
 
   const [albums, setAlbums] = useState([]);
+
   const [isSuccesful, setStatus] = useState(false);
 
-  const [photos, setPhotos] = useState([]);
   const [photosShown, openPhotos] = useState(false);
 
   const [currentAlbum, setCurrentAlbum] = useState(null);
@@ -38,14 +38,9 @@ function Albums() {
   useEffect(() => {
     if (isSuccesful === true) {
       openPhotos(true);
-      setPhotos(photosList);      
+      //setPhotos(photosList);      
     }
   }, [photosList])
-
-  const showPhotos = (id) => {
-    dispatch(getPhotos(id))
-    setCurrentAlbum(id);
-  }
 
   const createAlbum = (name) => {
     if (name !== '') {
@@ -55,20 +50,6 @@ function Albums() {
       newItem.title = name;
       newItem.photos = [];
       dispatch(addAlbum(newItem));
-      setOn(false);
-      setInputValue('');
-    } else {
-      alert('Please enter correct name value');
-    }
-  }
-
-  const createPhoto = (name) => {
-    if (name !== '') {
-      const photo = {};
-      photo.title = 'Lorem ipsum dolor sit ament';
-      photo.url = 'token-image.jpg';
-      photo.id = photosList.length + 1;
-      dispatch(addPhoto(photo));
       setOn(false);
       setInputValue('');
     } else {
@@ -141,7 +122,7 @@ function Albums() {
       </div>
       <Container>
         <div className="scroll-button" onClick={scrollToTarget}>
-          <img src="./arrow.png" alt="" />
+          <img src={window.location.origin + "/arrow.png"} alt="" />
         </div>
           <Row>
             <Col>
@@ -178,7 +159,7 @@ function Albums() {
             <Modal.Header>
               <Modal.Title>Album modal</Modal.Title>
               <div className="close-icon" onClick={closeModal}>
-                <img src="close.png" />
+                <img src={window.location.origin + "/close.png"} />
               </div>
             </Modal.Header>
             <Modal.Body>
