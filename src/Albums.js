@@ -4,13 +4,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAlbums, getPhotos, addAlbum, addPhoto } from './actions/index';
 import Portal from './Portal';
 import EmptyTemplate from './EmptyTemplate';
-import { Link } from 'react-router-dom';
+import { Link, useRouteMatch } from 'react-router-dom';
 
 function Albums() {
 
   const dispatch = useDispatch();
   const albumsList = useSelector(state => state.albumsArray.albums);
-  const photosList = useSelector(state => state.photosArray.photos);
 
   useEffect(() => {
     dispatch(getAlbums())
@@ -19,8 +18,6 @@ function Albums() {
   const [albums, setAlbums] = useState([]);
 
   const [isSuccesful, setStatus] = useState(false);
-
-  const [photosShown, openPhotos] = useState(false);
 
   const [currentAlbum, setCurrentAlbum] = useState(null);
 
@@ -34,13 +31,6 @@ function Albums() {
     setAlbums(albumsList);
     setStatus(true);
   }, [albumsList])
-
-  useEffect(() => {
-    if (isSuccesful === true) {
-      openPhotos(true);
-      //setPhotos(photosList);      
-    }
-  }, [photosList])
 
   const createAlbum = (name) => {
     if (name !== '') {
@@ -115,11 +105,15 @@ function Albums() {
     setInputValue('');
   }
 
+  let { path, url } = useRouteMatch();
+  let user = JSON.parse(localStorage.getItem('user'));
+  if (!user) {
+    user = {};
+    user.isAuthenticated = false;
+  }
+
   return (
     <>
-      <div className="header">
-        
-      </div>
       <Container>
         <div className="scroll-button" onClick={scrollToTarget}>
           <img src={window.location.origin + "/arrow.png"} alt="" />
@@ -140,7 +134,7 @@ function Albums() {
                       <tr key={item.id} >
                         <td>{item.id}</td>
                         <td>{item.title}</td>
-                        <td><Link to={`albums/${item.id}`}>Open</Link></td>
+                        <td>{user.isAuthenticated ?   <Link to={`${url}/albums/${item.id}`}>Open</Link> : <Link to={`albums/${item.id}`}>Open</Link>}</td>
                       </tr>
                     )}
                     <tr>

@@ -9,14 +9,8 @@ import { Link, useParams } from 'react-router-dom';
 function Photos() {
 
   const dispatch = useDispatch();
-  const albumsList = useSelector(state => state.albumsArray.albums);
   const photosList = useSelector(state => state.photosArray.photos);
 
-  useEffect(() => {
-    dispatch(getAlbums())
-  }, [dispatch]);
-
-  const [albums, setAlbums] = useState([]);
   const [isSuccesful, setStatus] = useState(false);
 
   const [photos, setPhotos] = useState([]);
@@ -30,15 +24,9 @@ function Photos() {
 
   const [currentFunction, setCurrentFunction] = useState(null);
 
-  useEffect(() => {
-    setAlbums(albumsList);
-    setStatus(true);
-  }, [albumsList])
 
   useEffect(() => {
-    if (isSuccesful === true) {
-      setPhotos(photosList);      
-    }
+    setPhotos(photosList);      
   }, [photosList])
 
   const { id } = useParams();
@@ -52,7 +40,7 @@ function Photos() {
     if (name !== '') {
       const photo = {};
       photo.title = 'Lorem ipsum dolor sit ament';
-      photo.url = 'token-image.jpg';
+      photo.url = `${window.location.origin}/token-image.jpg`;
       photo.id = photosList.length + 1;
       dispatch(addPhoto(photo));
       setOn(false);

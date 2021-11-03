@@ -104,9 +104,7 @@ function Content() {
     setInputValue('');
   }
 
-    let { path, url } = useRouteMatch();
-    console.log(url);
-    console.log(path);
+  let { path, url } = useRouteMatch();
 
   return (
     <>

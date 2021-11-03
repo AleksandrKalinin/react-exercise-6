@@ -1,8 +1,10 @@
-import React  from 'react';
+import React, { Fragment }  from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import Photos from './Photos';
 import UserPhotos from './UserPhotos';
+import Header from './Header';
+import UserDetails from './UserDetails';
 import Albums from './Albums';
 import Login from './Login';
 import ErrorBoundary from './ErrorBoundary';
@@ -87,20 +89,27 @@ ReactDOM.render(
               <Login />
             </Route>
             <Route exact path="/albums">
-              <Albums />
+              <>
+                <Header />
+                <Albums />
+              </> 
             </Route>
             <Route exact path="/albums/:id">
-              <Photos />
+              <>
+                <Header />
+                <Photos />
+              </>  
             </Route>        
             <PrivateRoute exact path="/user/:id">
-              <App />
+              <>
+                <Header />
+                <UserDetails />
+                <Albums />
+              </>
             </PrivateRoute> 
             <PrivateRoute path="/user/:id/albums/:id">
               <UserPhotos />
-            </PrivateRoute>                                          
-            <Route path="/photos">
-              <Photos />
-            </Route> 
+            </PrivateRoute>                     
           </Switch>                 
         </Router>
       </ErrorBoundary>  

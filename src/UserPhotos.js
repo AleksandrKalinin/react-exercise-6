@@ -10,14 +10,9 @@ import { Link, useParams } from 'react-router-dom';
 function UserPhotos() {
 
   const dispatch = useDispatch();
-  const albumsList = useSelector(state => state.albumsArray.albums);
+
   const photosList = useSelector(state => state.photosArray.photos);
 
-  useEffect(() => {
-    dispatch(getAlbums())
-  }, [dispatch]);
-  
-  const [albums, setAlbums] = useState([]);
   const [isSuccesful, setStatus] = useState(false);
 
   const [photos, setPhotos] = useState([]);
@@ -33,14 +28,7 @@ function UserPhotos() {
 
 
   useEffect(() => {
-    setAlbums(albumsList);
-    setStatus(true);
-  }, [albumsList])
-
-  useEffect(() => {
-    if (isSuccesful === true) {
-      setPhotos(photosList);      
-    }
+    setPhotos(photosList);      
   }, [photosList])
 
   const { id } = useParams();
