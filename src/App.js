@@ -6,14 +6,14 @@ import Content from './Content';
 
 function App() {
 
-	const [user, setUser] = useState('');
+  const [user, setUser] = useState('');
 
-	useEffect(() => {
-		if ( localStorage.getItem('user') !== null ) {
-			const username = JSON.parse(localStorage.getItem('user')).name;
-			setUser(username);
-		}
-	},[])
+  useEffect(() => {
+    if ( localStorage.getItem('user') !== null ) {
+      const username = JSON.parse(localStorage.getItem('user')).name;
+      setUser(username);
+    }
+  },[])
 
   const logOut = () => {
     localStorage.clear();
@@ -24,10 +24,10 @@ function App() {
     <Fragment>
         <div className="header">
           {user ?
-	          <div className="header-info">
-	            <span className="header-info__user">Welcome, {user} </span>
-	          	<Button onClick={logOut}>Logout</Button>
-	          </div> 	
+            <div className="header-info">
+              <span className="header-info__user">Welcome, {user} </span>
+              <Button onClick={logOut}>Logout</Button>
+            </div>  
            : null}
         </div>
       <div className='main'>

@@ -16,7 +16,7 @@ function UserPhotos() {
   useEffect(() => {
     dispatch(getAlbums())
   }, [dispatch]);
-
+  
   const [albums, setAlbums] = useState([]);
   const [isSuccesful, setStatus] = useState(false);
 
@@ -30,6 +30,7 @@ function UserPhotos() {
   const [inputValue, setInputValue] = useState('');
 
   const [currentFunction, setCurrentFunction] = useState(null);
+
 
   useEffect(() => {
     setAlbums(albumsList);
@@ -107,7 +108,6 @@ function UserPhotos() {
   //useComponentDidUnmount
   function useComponentDidUnmount(callback){
     useEffect(() => {
-
       return () => {
         callback();
       }

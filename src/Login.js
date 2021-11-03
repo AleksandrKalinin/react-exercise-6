@@ -20,39 +20,37 @@ function Login() {
     window.location.pathname = `user/${user.id}`;
   }
 
-    return (
-      <Fragment>
-        <div className="header">
-          
-        </div>
-        <Container>
-          <Row>
-            <Col md={12} lg={12} xs={12} >
-              <div className="login-body">
-                <div className="login-modal login">
-                  <Form>
-                    <Form.Group className="mb-3" controlId="formBasicEmail">
-                      <Form.Label className="login-label">Email address</Form.Label>
-                      <Form.Control defaultValue={inputUsername} onChange={updateUsername} type="text" placeholder="Username" />
-                    </Form.Group>
-                    <Form.Group className="mb-3" controlId="formBasicPassword">
-                      <Form.Label className="login-label">Password</Form.Label>
-                      <Form.Control defaultValue={inputPassword} onChange={updatePassword} type="password" placeholder="Password" />
-                    </Form.Group>
-                    <Button variant="primary" onClick = {logIn}>
-                      Submit
-                    </Button>
-                  </Form>
-                </div>
+  return (
+    <Fragment>
+      <div className="header">          
+      </div>
+      <Container>
+        <Row>
+          <Col md={12} lg={12} xs={12} >
+            <div className="login-body">
+              <div className="login-modal login">
+                <Form>
+                  <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Label className="login-label">Email address</Form.Label>
+                    <Form.Control defaultValue={inputUsername} onChange={updateUsername} type="text" placeholder="Username" />
+                  </Form.Group>
+                  <Form.Group className="mb-3" controlId="formBasicPassword">
+                    <Form.Label className="login-label">Password</Form.Label>
+                    <Form.Control defaultValue={inputPassword} onChange={updatePassword} type="password" placeholder="Password" />
+                  </Form.Group>
+                  <Button variant="primary" onClick = {logIn}>
+                    Submit
+                  </Button>
+                </Form>
               </div>
-            </Col>
-          </Row>
-        </Container> 
-        <div className="footer">
-          
-        </div>
-      </Fragment>
-    );
-  }
+            </div>
+          </Col>
+        </Row>
+      </Container> 
+      <div className="footer">          
+      </div>
+    </Fragment>
+  );
+}
 
 export default Login;
